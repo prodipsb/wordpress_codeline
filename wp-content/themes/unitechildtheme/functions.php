@@ -86,6 +86,158 @@ endif; // unite_setup
 add_action( 'after_setup_theme', 'unite_setup' );
 
 
+
+function create_post_type() {
+  register_post_type( 'films',
+    array(
+      'labels' => array(
+        'name' => __( 'Films' ),
+        'singular_name' => __('Film'),
+        'add_new' => 'Add Film',
+        'add_new_item' => 'Add New Film',
+        ),
+      'public' => true,
+      'has_archive' => true,
+      'hierarchical' => true,
+      'supports' => array( 'title', 'editor', 'custom-fields' )
+    )
+  );
+}
+add_action( 'init', 'create_post_type' );
+
+
+
+//function genre_custom_taxonomy() {
+//	// create a new taxonomy
+//	register_taxonomy(
+//		'genre',
+//		'films',
+//		array(
+//			'label' => __( 'Genre' ),
+//			'rewrite' => array( 'slug' => 'genre' ),
+//                    'show_ui' => true,
+//                    'show_admin_column' => true,
+//                    'query_var' => true,
+//                    'capabilities' => array(
+//                    'assign_terms' => 'edit_guides',
+//                                        'edit_terms' => 'publish_guides'
+//                                )
+//                        )
+//	);
+//}
+//add_action( 'init', 'genre_custom_taxonomy' );
+
+
+add_action( 'init', 'film_custom_taxonomies');
+
+function film_custom_taxonomies() {
+	$genre_labels = array(
+		'name'              => _x( 'Genres', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Genres', 'textdomain' ),
+		'all_items'         => __( 'All Genres', 'textdomain' ),
+		'parent_item'       => __( 'Parent Genre', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Genre', 'textdomain' ),
+		'update_item'       => __( 'Update Genre', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
+		'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
+		'menu_name'         => __( 'Genres', 'textdomain' ),
+	);
+
+	$genre_args = array(
+		'hierarchical'      => true,
+		'labels'            => $genre_labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'genre' ),
+	);
+
+	register_taxonomy( 'genre', array( 'films' ), $genre_args );
+        
+        $country_labels = array(
+		'name'              => _x( 'Countries', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Country', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Country', 'textdomain' ),
+		'all_items'         => __( 'All Country', 'textdomain' ),
+		'parent_item'       => __( 'Parent Country', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Country:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Country', 'textdomain' ),
+		'update_item'       => __( 'Update Country', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Country', 'textdomain' ),
+		'new_item_name'     => __( 'New Country Name', 'textdomain' ),
+		'menu_name'         => __( 'Countries', 'textdomain' ),
+	);
+
+	$country_args = array(
+		'hierarchical'      => true,
+		'labels'            => $country_labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'country' ),
+	);
+
+	register_taxonomy( 'country', array( 'films' ), $country_args );
+        
+        
+        $actor_labels = array(
+		'name'              => _x( 'Actors', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Actor', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Actor', 'textdomain' ),
+		'all_items'         => __( 'All Actor', 'textdomain' ),
+		'parent_item'       => __( 'Parent Actor', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Actor:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Actor', 'textdomain' ),
+		'update_item'       => __( 'Update Actor', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Actor', 'textdomain' ),
+		'new_item_name'     => __( 'New Actor Name', 'textdomain' ),
+		'menu_name'         => __( 'Actors', 'textdomain' ),
+	);
+
+	$actor_args = array(
+		'hierarchical'      => true,
+		'labels'            => $actor_labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'country' ),
+	);
+
+	register_taxonomy( 'actor', array( 'films' ), $actor_args );
+        
+        
+        $year_labels = array(
+		'name'              => _x( 'Year', 'taxonomy general name', 'textdomain' ),
+		'singular_name'     => _x( 'Year', 'taxonomy singular name', 'textdomain' ),
+		'search_items'      => __( 'Search Year', 'textdomain' ),
+		'all_items'         => __( 'All Year', 'textdomain' ),
+		'parent_item'       => __( 'Parent Year', 'textdomain' ),
+		'parent_item_colon' => __( 'Parent Year:', 'textdomain' ),
+		'edit_item'         => __( 'Edit Year', 'textdomain' ),
+		'update_item'       => __( 'Update Year', 'textdomain' ),
+		'add_new_item'      => __( 'Add New Year', 'textdomain' ),
+		'new_item_name'     => __( 'New Year Name', 'textdomain' ),
+		'menu_name'         => __( 'Years', 'textdomain' ),
+	);
+
+	$year_args = array(
+		'hierarchical'      => true,
+		'labels'            => $year_labels,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'rewrite'           => array( 'slug' => 'country' ),
+	);
+
+	register_taxonomy( 'year', array( 'films' ), $year_args );
+
+}
+
+
+
+
 if ( ! function_exists( 'unite_widgets_init' ) ) :
 /**
  * Register widgetized area and update sidebar with default widgets.
